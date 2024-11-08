@@ -16,7 +16,7 @@ Grab the VM public IP and create A record.
 mkdir wordpress
 
 # Clone Git Repo
-git clone git@github.com:Clouddays-tech/docker101-wordpress.git
+git clone https://github.com/Clouddays-tech/docker101-wordpress.git
 
 # CD into directory
 cd docker101-wordpress/
