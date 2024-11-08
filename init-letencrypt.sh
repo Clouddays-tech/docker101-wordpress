@@ -20,7 +20,8 @@ if ! [ -x "$(command -v docker-compose)" ]; then
   exit 1
 fi
 
-domains=(wordpress.clouddays.info)
+#domains=(wordpress.clouddays.info)
+domains=("$domainname")
 rsa_key_size=4096
 data_path="./data/certbot"
 email="technology@outlook.com" # Adding a valid address is strongly recommended
