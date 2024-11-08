@@ -3,7 +3,7 @@ Run your wordpress TLS letencrypt site in 5mins
 
 ## Creating Cloud VM with Public IP Address 
 If you dont have a VM with public IP, here is the command to create on Azure IAAS VM with public IP. Create anywhere in any places with cmd, GUI or IAC. 
-But Ensure port 22, 80 and 443 are allowed inbound direction.
+But ensure port 22, 80 and 443 are allowed inbound direction.
 ```
 az group create -n RG001 -l westus
 
@@ -22,7 +22,7 @@ az vm extension set \
   --publisher Microsoft.Azure.Extensions \
   --settings '{"fileUris": ["https://raw.githubusercontent.com/Clouddays-tech/docker101-wordpress/refs/heads/main/cloudinit.sh"], "commandToExecute": "./cloudinit.sh"}'
 
-# Open port 22 for SSH
+# Open port 22, 80 and 443 
 az network nsg rule create \
   --resource-group RG001 \
   --nsg-name wordpress_vmNSG \
@@ -32,7 +32,7 @@ az network nsg rule create \
   --access Allow \
   --protocol Tcp \
   --destination-port-range 22
-# Open port 80 for HTTP
+
 az network nsg rule create \
   --resource-group RG001 \
   --nsg-name wordpress_vmNSG \
@@ -42,7 +42,7 @@ az network nsg rule create \
   --access Allow \
   --protocol Tcp \
   --destination-port-range 80
-# Open port 443 for HTTPS
+
 az network nsg rule create \
   --resource-group RG001 \
   --nsg-name wordpress_vmNSG \
@@ -62,10 +62,10 @@ az vm show \
 
 ## Create A record for your webpage in your public dns server. 
 
-Grab the VM public IP and create public DNS A record.
+Grab the VM public IP and create public DNS A record for FQDN.
 
 ## SSH into your VM
-ssh azureuser@yourIPAddress
+ssh azureuser@yourIPAddress/FQDN
 
 ## Configuraiton 
 
@@ -80,6 +80,7 @@ git clone https://github.com/Clouddays-tech/docker101-wordpress.git
 cd docker101-wordpress/
 
 # Run Script
+# Only run the script after DNS nslookup is able to resovle the FQDN
 sudo bash init-letencrypt.sh
 ```
 Fill in the SQL USER and SQL Password and your domain name (FQDN) for certificate request.
